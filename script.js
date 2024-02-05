@@ -24,15 +24,15 @@ function isPlayerReady() {
 }
 
 function gameGreeting() {
-  alert(`${greetingMassage.title} \n ${greetingMassage.intro} `);
+  alert(`${greetingMassage.title}\n${greetingMassage.intro} `);
   console.log(
-    `${gameRules.title}\n${gameRules.line1}\n
-    ${gameRules.line2}\n${gameRules.line3}\n
+    `${gameRules.title}\n${gameRules.line1}
+    ${gameRules.line2}\n${gameRules.line3}
     ${gameRules.line4}`
   );
   alert(
-    `${gameRules.title}\n${gameRules.line1}\n
-    ${gameRules.line2}\n${gameRules.line3}\n
+    `${gameRules.title}\n${gameRules.line1}
+    ${gameRules.line2}\n${gameRules.line3}
     ${gameRules.line4}\n${gameRules.line5}`
   );
 

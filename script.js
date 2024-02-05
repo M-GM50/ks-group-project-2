@@ -52,4 +52,4 @@ function playGame() {
   whoWins(playerPlay(), computerPlay());
 }
 
-// playGame();
+playGame();

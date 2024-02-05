@@ -49,7 +49,8 @@ function whoWins(playerSelection, computerSelection) {
 }
 
 function playGame() {
-  whoWins(playerPlay(), computerPlay());
+  let result = whoWins(playerPlay(), computerPlay());
+  console.log(result);
 }
 
 playGame();

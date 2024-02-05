@@ -23,7 +23,7 @@ function isPlayerReady() {
   return response === "yes";
 }
 
-function gameGreeting() {
+function appStart() {
   alert(`${greetingMassage.title}\n${greetingMassage.intro} `);
   console.log(
     `${gameRules.title}\n${gameRules.line1}\n${gameRules.line2}\n${gameRules.line3}\n${gameRules.line4}`
@@ -92,4 +92,4 @@ function playGame() {
   console.log(result);
 }
 
-gameGreeting();
+appStart();

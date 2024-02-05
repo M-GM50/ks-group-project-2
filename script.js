@@ -9,7 +9,7 @@ const gameRules = {
   line2: "Scissors beats Paper",
   line3: "Paper beats Rock",
   line4:
-    "Can you defeat the evil AI in this epic battle?You will play 5 rounds, at the end who get more points is the winner!!!",
+    "Can you defeat the evil AI in this epic battle?You will play 5 rounds,at the end who get more points is the winner!!!",
   line5:
     "I will post the rules on the console as well just in case you forget.",
 };
@@ -26,15 +26,19 @@ function isPlayerReady() {
 function gameGreeting() {
   alert(`${greetingMassage.title} \n ${greetingMassage.intro} `);
   console.log(
-    `${gameRules.title}\n${gameRules.line1}\n${gameRules.line2}\n${gameRules.line3}\n${gameRules.line4}`
+    `${gameRules.title}\n${gameRules.line1}\n
+    ${gameRules.line2}\n${gameRules.line3}\n
+    ${gameRules.line4}`
   );
   alert(
-    `${gameRules.title}\n${gameRules.line1}\n${gameRules.line2}\n${gameRules.line3}\n${gameRules.line4}\n${gameRules.line5}`
+    `${gameRules.title}\n${gameRules.line1}\n
+    ${gameRules.line2}\n${gameRules.line3}\n
+    ${gameRules.line4}\n${gameRules.line5}`
   );
 
   if (isPlayerReady()) {
     // Start the game
-    // playGame();
+    playGame();
     console.log("Game start");
   } else {
     alert("Alright, maybe next time. Goodbye!");

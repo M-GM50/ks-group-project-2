@@ -2,26 +2,18 @@ function computerPlay() {
   let random = Math.floor(Math.random() * 3) + 1;
 
   if (random === 1) {
-    return "Rock";
+    return "rock";
   } else if (random === 2) {
-    return "Paper";
+    return "paper";
   } else {
-    return "Scissors";
+    return "scissors";
   }
 }
 
 function playerPlay() {
   let player = prompt("Enter rock, paper or scissors ?");
   player = player.toLowerCase();
-  if (player === "rock") {
-    return "You have chosen Rock";
-  } else if (player === "paper") {
-    return "You have chosen Paper";
-  } else if (player === "scissors") {
-    return "You have chosen Scissors";
-  } else {
-    alert("Invalid choice. Please enter rock, paper or scissors.");
-  }
+  return player;
 }
 
 function whoWins(playerSelection, computerSelection) {
@@ -49,7 +41,10 @@ function whoWins(playerSelection, computerSelection) {
 }
 
 function playGame() {
-  let result = whoWins(playerPlay(), computerPlay());
+  let playerChoice = playerPlay();
+  let computerChoice = computerPlay();
+  console.log(computerChoice);
+  let result = whoWins(playerChoice, computerChoice);
   console.log(result);
 }
 

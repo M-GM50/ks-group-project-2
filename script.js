@@ -1,9 +1,9 @@
 function computerPlay() {
   let random = Math.floor(Math.random() * 3) + 1;
 
-  if (random == 1) {
+  if (random === 1) {
     return "Rock";
-  } else if (random == 2) {
+  } else if (random === 2) {
     return "Paper";
   } else {
     return "Scissors";
@@ -27,20 +27,20 @@ function playerPlay() {
 function whoWins(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) {
     return "It's a Draw!";
-  } else if (playerSelection == "rock") {
-    if (computerSelection == "scissors") {
+  } else if (playerSelection === "rock") {
+    if (computerSelection === "scissors") {
       return "You win! Rock beats Scissors!";
     } else {
       return "You Lose!";
     }
-  } else if (playerSelection == "scissors") {
-    if (computerSelection == "paper") {
+  } else if (playerSelection === "scissors") {
+    if (computerSelection === "paper") {
       return "You Win! Scissors beats Paper";
     } else {
       return "You Lose!";
     }
-  } else if (playerSelection == "paper") {
-    if (computerSelection == "rock") {
+  } else if (playerSelection === "paper") {
+    if (computerSelection === "rock") {
       return "You Win! Paper beats Rock";
     } else {
       return "You Lose!";

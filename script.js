@@ -43,7 +43,8 @@ function whoWins(playerSelection, computerSelection) {
 function playGame() {
   let playerChoice = playerPlay();
   let computerChoice = computerPlay();
-  console.log(computerChoice);
+  console.log("player: ", playerChoice);
+  console.log("computer: ", computerChoice);
   let result = whoWins(playerChoice, computerChoice);
   console.log(result);
 }

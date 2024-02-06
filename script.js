@@ -3,6 +3,7 @@ const greetingMassage = {
   intro:
     "This game is a very simple, yet exciting game that pits two opponents against each other to determine the ultimate victor.",
 };
+
 const gameRules = {
   title: "The Rules are straghtforward:",
   line1: "Rocks beats Scissors",
@@ -13,6 +14,10 @@ const gameRules = {
   line5:
     "(I will post the rules on the console as well just in case you forget.)",
 };
+
+const initialQuestion = "Choose: rock, paper or scissors ?"; 
+
+const wrongInput = "Wrong Input!"
 
 function isPlayerReady() {
   let response = prompt("Are you ready to play? (yes/no)").toLowerCase();
@@ -53,10 +58,22 @@ function computerPlay() {
   }
 }
 
+const isValidInput = (input) => {
+    return input === 'rock' || input === 'paper' || input === 'scissors';
+}
+
 function playerPlay() {
-  let player = prompt("Enter rock, paper or scissors ?");
-  player = player.toLowerCase();
-  return player;
+  let question = initialQuestion;
+
+  while(true){
+    let playerChoose = prompt(question)?.toLowerCase();
+    
+    if(isValidInput(playerChoose)){
+      return playerChoose; 
+    } else {
+      question = `${wrongInput} ${initialQuestion}`;
+    }
+  }
 }
 
 function whoWins(playerSelection, computerSelection) {

@@ -20,12 +20,20 @@ const initialQuestion = "Choose: rock, paper or scissors ?";
 const wrongInput = "Wrong Input!"
 
 function isPlayerReady() {
-  let response = prompt("Are you ready to play? (yes/no)").toLowerCase();
-  while (response !== "yes" && response !== "no") {
-    alert("Invalid response. Please enter 'yes' or 'no'.");
-    response = prompt("Are you ready to play? (yes/no)").toLowerCase();
+  try {
+    let response = prompt("Are you ready to play? (yes/no)");
+    if (response === null) {
+      throw new Error("See you next time!!!");
+    } else {
+      while (response !== "yes" && response !== "no") {
+        alert("Invalid response. Please enter 'yes' or 'no'.");
+        response = prompt("Are you ready to play? (yes/no)").toLowerCase();
+      }
+      return response === "yes";
+    }
+  } catch (error) {
+    console.log(error.message);
   }
-  return response === "yes";
 }
 
 function appStart() {

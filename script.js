@@ -15,7 +15,7 @@ const gameRules = {
     "(I will post the rules on the console as well just in case you forget.)",
 };
 
-const initialQuestion = "Choose: rock, paper or scissors ?"; 
+const initialQuestion = "Choose: rock, paper or scissors ?";
 
 const wrongInput = "Wrong Input!"
 
@@ -39,8 +39,8 @@ function appStart() {
 
   if (isPlayerReady()) {
     // Start the game
-    playGame();
     console.log("Game start");
+    Rounds();
   } else {
     alert("Alright, maybe next time. Goodbye!");
   }
@@ -59,54 +59,61 @@ function computerPlay() {
 }
 
 const isValidInput = (input) => {
-    return input === 'rock' || input === 'paper' || input === 'scissors';
+  return input === 'rock' || input === 'paper' || input === 'scissors';
 }
 
 function playerPlay() {
   let question = initialQuestion;
 
-  while(true){
+  while (true) {
     let playerChoose = prompt(question)?.toLowerCase();
-    
-    if(isValidInput(playerChoose)){
-      return playerChoose; 
+
+    if (isValidInput(playerChoose)) {
+      return playerChoose;
     } else {
       question = `${wrongInput} ${initialQuestion}`;
     }
   }
 }
 
+function Rounds() {
+  for (let i = 0; i < 5; i++) {
+    playGame();
+  }
+}
+
+
+
 function whoWins(playerSelection, computerSelection) {
+  playerPoints = 0;
+  computerPoints = 0;
+
   if (playerSelection == computerSelection) {
     return "It's a Draw!";
-  } else if (playerSelection === "rock") {
-    if (computerSelection === "scissors") {
-      return "You win! Rock beats Scissors!";
-    } else {
-      return "You Lose!";
-    }
-  } else if (playerSelection === "scissors") {
-    if (computerSelection === "paper") {
-      return "You Win! Scissors beats Paper";
-    } else {
-      return "You Lose!";
-    }
-  } else if (playerSelection === "paper") {
-    if (computerSelection === "rock") {
-      return "You Win! Paper beats Rock";
-    } else {
-      return "You Lose!";
-    }
+  }
+  else if (playerSelection === "rock" && computerSelection === "scissors") {
+    return "You win! Rock beats Scissors!";
+  }
+  else if (playerSelection === "scissors" && computerSelection === "paper") {
+    return "You Win! Scissors beats Paper";
+  }
+  else if (playerSelection === "paper" && computerSelection === "rock") {
+    return "You Win! Paper beats Rock";
+  }
+  else {
+    return "You Lose!";
   }
 }
 
 function playGame() {
   let playerChoice = playerPlay();
   let computerChoice = computerPlay();
+
   console.log("player: ", playerChoice);
   console.log("computer: ", computerChoice);
   let result = whoWins(playerChoice, computerChoice);
   console.log(result);
+
 }
 
 appStart();

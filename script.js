@@ -85,16 +85,18 @@ function playerPlay() {
 }
 
 function Rounds() {
+  let round = 1;
   for (let i = 0; i < 5; i++) {
+    console.log(`Round: ${round}`);
     playGame();
+    round++;
   }
 }
 
 
 
 function whoWins(playerSelection, computerSelection) {
-  playerPoints = 0;
-  computerPoints = 0;
+
 
   if (playerSelection == computerSelection) {
     return "It's a Draw!";
@@ -111,7 +113,10 @@ function whoWins(playerSelection, computerSelection) {
   else {
     return "You Lose!";
   }
+
 }
+
+
 
 function playGame() {
   let playerChoice = playerPlay();
@@ -123,5 +128,7 @@ function playGame() {
   console.log(result);
 
 }
+
+
 
 appStart();

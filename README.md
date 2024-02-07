@@ -19,7 +19,7 @@ The player is going to play against computer for 5 rounds.
 
 ## Game Rules
 
-This game is a very simple, yet exciting game that pits two opponents against each other to determine the ultimate victor.
+This is a very simple and yet exciting game that pits two opponents against each other to determine the ultimate victor.
 
 - Rocks beats Scissors
 - Scissors beats Paper

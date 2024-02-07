@@ -12,9 +12,8 @@ To build a Rock, Paper, Scissors game with HTML and JavaScript. This game is goi
 The player is going to play against computer for 5 rounds.
 
 ## Instruction
-
-- Go to the link: https://m-gm50.github.io/ks-group-project-2/
 - Open developer console.
+- Click the link: https://m-gm50.github.io/ks-group-project-2/
 - You can start playing!!!
 
 ## Game Rules

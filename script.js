@@ -141,7 +141,7 @@ function reStartGame() {
 }
 
 appStart();
-for (let infinite = 0; infinite < 1;) {
-  reStartGame();
-}
+
+reStartGame();
+
 

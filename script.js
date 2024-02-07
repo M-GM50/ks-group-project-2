@@ -103,8 +103,6 @@ function reStartGame() {
   }
 }
 
-
 appStart();
-reStartGame();
 
 

@@ -131,8 +131,8 @@ function playGame() {
 
 function reStartGame() {
   let playerChoice = prompt("Do you want another chance to win? (yes/no)")
-  if (playerChoice == "yes")
-  {
+  if (playerChoice == "yes") {
+    console.clear();
     appStart();
   }
   else {
@@ -141,5 +141,7 @@ function reStartGame() {
 }
 
 appStart();
-
+for (let infinite = 0; infinite < 1;) {
+  reStartGame();
+}
 

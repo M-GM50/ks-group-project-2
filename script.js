@@ -16,8 +16,33 @@ const gameRules = {
 };
 
 const initialQuestion = "Choose: rock, paper or scissors ?";
+const wrongInput = "Wrong Input!";
+const computerVictory = " Bad ending. Victory goes to the Evil AI!";
+const playerVictory = "What a Epic Game, You are the Victor!";
+const draw = "After a close game You tied the Evil AI!";
 
-const wrongInput = "Wrong Input!"
+var playerScore = 0;
+var computerScore = 0;
+
+function incrementPlayerScore() {
+  playerScore++;
+}
+
+function incrementComputerScore() {
+  computerScore++;
+}
+
+function determineWinner() {
+  if (playerScore > computerScore) {
+    alert(playerVictory);
+  }
+  else if(computerScore > playerScore) {
+    alert(computerVictory);
+  }
+  else {
+    alert(draw);
+  }
+}
 
 function isPlayerReady() {
   try {
@@ -49,6 +74,7 @@ function appStart() {
     // Start the game
     console.log("Game start");
     Rounds();
+    determineWinner(); // rose added this line
   } else {
     alert("Alright, maybe next time. Goodbye!");
   }
@@ -56,7 +82,6 @@ function appStart() {
 
 function computerPlay() {
   let random = Math.floor(Math.random() * 3) + 1;
-
   if (random === 1) {
     return "rock";
   } else if (random === 2) {
@@ -93,24 +118,24 @@ function Rounds() {
   }
 }
 
-
-
 function whoWins(playerSelection, computerSelection) {
-
-
   if (playerSelection == computerSelection) {
     return "It's a Draw!";
   }
   else if (playerSelection === "rock" && computerSelection === "scissors") {
+    incrementPlayerScore(); // rose added this line
     return "You win! Rock beats Scissors!";
   }
   else if (playerSelection === "scissors" && computerSelection === "paper") {
+    incrementPlayerScore(); // rose added this line
     return "You Win! Scissors beats Paper";
   }
   else if (playerSelection === "paper" && computerSelection === "rock") {
+    incrementPlayerScore(); // rose added this line
     return "You Win! Paper beats Rock";
   }
   else {
+    incrementComputerScore();
     return "You Lose!";
   }
 
@@ -126,6 +151,7 @@ function playGame() {
   console.log("computer: ", computerChoice);
   let result = whoWins(playerChoice, computerChoice);
   console.log(result);
+  alert(`Computer: ${computerScore} - You: ${playerScore}`); // rose added this line
 
 }
 
@@ -133,6 +159,8 @@ function reStartGame() {
   let playerChoice = prompt("Do you want another chance to win? (yes/no)")
   if (playerChoice == "yes") {
     console.clear();
+    playerScore = 0;
+    computerScore = 0;
     appStart();
   }
   else {
@@ -141,7 +169,6 @@ function reStartGame() {
 }
 
 appStart();
-
 reStartGame();
 
 

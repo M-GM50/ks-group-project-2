@@ -92,4 +92,19 @@ function playGame() {
   console.log(result);
 }
 
+function reStartGame() {
+  let playerChoice = prompt("Do you want another chance to win? (yes/no)")
+  if (playerChoice == "yes")
+  {
+    appStart();
+  }
+  else {
+    alert("Alright, see you soon!");
+  }
+}
+
+
 appStart();
+reStartGame();
+
+

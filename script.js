@@ -21,26 +21,34 @@ const computerVictory = " Bad ending. Victory goes to the Evil AI!";
 const playerVictory = "What a Epic Game, You are the Victor!";
 const draw = "After a close game You tied the Evil AI!";
 
-var playerScore = 0;
-var computerScore = 0;
+const nOfRounds = 5;
 
-function incrementPlayerScore() {
-  playerScore++;
+let playerScore = 0;
+let computerScore = 0;
+
+const showMessage = (message) => {
+  console.log(message);
+  alert(message);
 }
 
-function incrementComputerScore() {
-  computerScore++;
+const incrementPlayerScore = () => playerScore++;
+
+const incrementComputerScore = () => computerScore++;
+
+const resetScores = () => {
+  playerScore = 0;
+  computerScore = 0;
 }
 
 function determineWinner() {
   if (playerScore > computerScore) {
-    alert(playerVictory);
+    showMessage(playerVictory);
   }
   else if(computerScore > playerScore) {
-    alert(computerVictory);
+    showMessage(computerVictory);
   }
   else {
-    alert(draw);
+    showMessage(draw);
   }
 }
 
@@ -51,7 +59,7 @@ function isPlayerReady() {
       throw new Error("See you next time!!!");
     } else {
       while (response !== "yes" && response !== "no") {
-        alert("Invalid response. Please enter 'yes' or 'no'.");
+        showMessage("Invalid response. Please enter 'yes' or 'no'.");
         response = prompt("Are you ready to play? (yes/no)").toLowerCase();
       }
       return response === "yes";
@@ -62,22 +70,27 @@ function isPlayerReady() {
 }
 
 function appStart() {
-  alert(`${greetingMassage.title}\n${greetingMassage.intro} `);
-  console.log(
+  showMessage(`${greetingMassage.title}\n${greetingMassage.intro} `);
+  showMessage(
     `${gameRules.title}\n${gameRules.line1}\n${gameRules.line2}\n${gameRules.line3}\n${gameRules.line4}`
   );
-  alert(
-    `${gameRules.title}\n${gameRules.line1}\n${gameRules.line2}\n${gameRules.line3}\n${gameRules.line4}\n${gameRules.line5}`
-  );
+  
+  gameStart();
+}
 
+function gameStart() {
   if (isPlayerReady()) {
-    // Start the game
-    console.log("Game start");
-    Rounds();
-    determineWinner(); // rose added this line
+    game();
   } else {
-    alert("Alright, maybe next time. Goodbye!");
+    showMessage("Alright, maybe next time. Goodbye!");
   }
+}
+
+function game() {
+  // Play the game
+  showMessage("Game start");
+  Rounds();
+  determineWinner(); // rose added this line
 }
 
 function computerPlay() {
@@ -91,12 +104,11 @@ function computerPlay() {
   }
 }
 
-const isValidInput = (input) => {
-  return input === 'rock' || input === 'paper' || input === 'scissors';
-}
+const isValidInput = (input) => input === 'rock' || input === 'paper' || input === 'scissors';
 
-function playerPlay() {
-  let question = initialQuestion;
+function playerPlay(roundNumber) {
+  const roundCounterMessage = `ROUND ${roundNumber}`;
+  let question = `${roundCounterMessage} \n${initialQuestion}`;
 
   while (true) {
     let playerChoose = prompt(question)?.toLowerCase();
@@ -104,16 +116,25 @@ function playerPlay() {
     if (isValidInput(playerChoose)) {
       return playerChoose;
     } else {
-      question = `${wrongInput} ${initialQuestion}`;
+      question = `${roundCounterMessage}\n${wrongInput} ${initialQuestion}`;
     }
   }
 }
 
+const showScores = (round) => {
+  let scoreMessage =`Computer: ${computerScore} - You: ${playerScore}`;
+  const roundsLeft = nOfRounds - round;
+
+  if(roundsLeft > 0) scoreMessage += `\n${roundsLeft} ROUNDS LEFT`;
+
+  showMessage(scoreMessage);
+}
+
 function Rounds() {
   let round = 1;
-  for (let i = 0; i < 5; i++) {
-    console.log(`Round: ${round}`);
-    playGame();
+  for (let i = 0; i < nOfRounds; i++) {
+    playGame(round);
+    showScores(round);
     round++;
   }
 }
@@ -138,33 +159,24 @@ function whoWins(playerSelection, computerSelection) {
     incrementComputerScore();
     return "You Lose!";
   }
-
 }
 
-
-
-function playGame() {
-  let playerChoice = playerPlay();
+function playGame(round) {
+  let playerChoice = playerPlay(round);
   let computerChoice = computerPlay();
-
-  console.log("player: ", playerChoice);
-  console.log("computer: ", computerChoice);
   let result = whoWins(playerChoice, computerChoice);
-  console.log(result);
-  alert(`Computer: ${computerScore} - You: ${playerScore}`); // rose added this line
-
+  showMessage(`Player Choice: ${playerChoice}\nComputer Choice: ${computerChoice}\n${result}`);
 }
 
 function reStartGame() {
-  let playerChoice = prompt("Do you want another chance to win? (yes/no)")
+  let playerChoice = prompt("Do you want play again? (yes/no)")
   if (playerChoice == "yes") {
     console.clear();
-    playerScore = 0;
-    computerScore = 0;
-    appStart();
+    resetScores();
+    gameStart();
   }
   else {
-    alert("Alright, see you soon!");
+    showMessage("Alright, see you soon!");
   }
 }
 

@@ -1,10 +1,10 @@
 const aiResponses = [
-  `😈Evil AI: "Pathetic human, your defeat was inevitable!"`,
-  `😈Evil AI: "You're not even a worthy adversary, just a momentary annoyance."`,
-  `😈Evil AI: "How amusing, you believed victory was within your grasp."`,
-  `😈Evil AI: "You thought you could beat me? How cute"`,
-  `😈Evil AI: "Not even worthy of my time..."`,
-  `😈Evil AI: "Do you think randomness is your ally?"`,
+  `😈 Evil AI: "Pathetic human, your defeat was inevitable!"`,
+  `😈 Evil AI: "You're not even a worthy adversary, just a momentary annoyance."`,
+  `😈 Evil AI: "How amusing, you believed victory was within your grasp."`,
+  `😈 Evil AI: "You thought you could beat me? How cute"`,
+  `😈 Evil AI: "Not even worthy of my time..."`,
+  `😈 Evil AI: "Do you think randomness is your ally?"`,
 ];
 
 const greetingMassage = {
@@ -19,7 +19,7 @@ const gameRules = {
   line2: "→ Scissors beats Paper",
   line3: "→ Paper beats Rock",
   line4:
-    "Can you defeat the 😈evil AI in this epic battle? You will play 5 rounds,at the end who get more points is the winner!!!",
+    "Can you defeat the 😈evil AI in this epic battle? You will play 5 rounds, at the end who get more points is the winner!!!",
   line5:
     "(I will post the rules on the console as well just in case you forget.)",
 };
@@ -31,7 +31,7 @@ const wrongInput = "❌ Wrong Input!";
 const computerVictory = " Bad ending. Victory goes to the 😈Evil AI!";
 const playerVictory = "What a Epic Game, You are the 🏆Victor!";
 const draw = "After a close game You tied the Evil AI!";
-const readyToPlay = "Are you ready to play? (yes/no)";
+const readyToPlay = "👉 Are you ready to play? (yes/no)";
 const greeting = "Alright, maybe next time. Goodbye! 👋";
 
 const nOfRounds = 5;
@@ -45,7 +45,7 @@ const showMessage = (message) => {
 };
 
 const getRandomAiResponses = () => {
-  let response = "😈 You Lose! \n";
+  let response = "😭 You Lose! \n";
   return response + aiResponses[Math.floor(Math.random() * aiResponses.length)];
 };
 
@@ -70,7 +70,7 @@ function determineWinner() {
 
 function isPlayerReady() {
   try {
-    let response = prompt("👉 Are you ready to play? (yes/no)");
+    let response = prompt(readyToPlay);
     if (response === null) {
       throw new Error("👋 See you next time!!!");
     } else {
@@ -144,7 +144,11 @@ const showScores = (round) => {
   let scoreMessage = `Computer: ${computerScore} - You: ${playerScore}`;
   const roundsLeft = nOfRounds - round;
 
-  if (roundsLeft > 0) scoreMessage += `\n${roundsLeft} ROUNDS LEFT`;
+  if (roundsLeft > 0) {
+    scoreMessage += `\n${roundsLeft} ROUNDS LEFT`;
+  } else {
+    scoreMessage += `\n🚩 FINAL SCORE`
+  } 
 
   showMessage(scoreMessage);
 };

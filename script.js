@@ -30,7 +30,7 @@ const invalidResponse = "❌ Invalid response. Please enter 'yes' or 'no'";
 const wrongInput = "❌ Wrong Input!";
 const computerVictory = " Bad ending. Victory goes to the 😈Evil AI!";
 const playerVictory = "What a Epic Game, You are the 🏆Victor!";
-const draw = "After a close game You tied the Evil AI!";
+const draw = "After a close game You tied the Evil AI! 🤷‍♂️";
 const readyToPlay = "👉 Are you ready to play? (yes/no)";
 const greeting = "Alright, maybe next time. Goodbye! 👋";
 
@@ -44,10 +44,7 @@ const showMessage = (message) => {
   alert(message);
 };
 
-const getRandomAiResponses = () => {
-  let response = "😭 You Lose! \n";
-  return response + aiResponses[Math.floor(Math.random() * aiResponses.length)];
-};
+const getRandomAiResponses = () => showMessage(aiResponses[Math.floor(Math.random() * aiResponses.length)]);
 
 const increasePlayerScore = () => playerScore++;
 
@@ -103,7 +100,6 @@ function gameStart() {
 }
 
 function game() {
-  // Play the game
   showMessage(gameStartMsg);
   Rounds();
   determineWinner();
@@ -122,8 +118,7 @@ function computerPlay() {
   }
 }
 
-const isValidInput = (input) =>
-  input === "rock" || input === "paper" || input === "scissors";
+const isValidInput = (input) => input === "rock" || input === "paper" || input === "scissors";
 
 function playerPlay(roundNumber) {
   const roundCounterMessage = `🚩 ROUND ${roundNumber}`;
@@ -147,8 +142,8 @@ const showScores = (round) => {
   if (roundsLeft > 0) {
     scoreMessage += `\n${roundsLeft} ROUNDS LEFT`;
   } else {
-    scoreMessage += `\n🚩 FINAL SCORE`
-  } 
+    scoreMessage += `\n🚩 FINAL SCORE`;
+  }
 
   showMessage(scoreMessage);
 };
@@ -163,50 +158,74 @@ function Rounds() {
 }
 
 function whoWins(playerSelection, computerSelection) {
-  let message = "";
-  switch(true) {
-    case playerSelection === computerSelection:
-      message = "🤷‍♂️ It's a Draw!";
-      break;
-    case playerSelection === "rock" && computerSelection === "scissors":
-      message = "🥳 You win! Rock beats Scissors!";
-      break;
-    case playerSelection === "scissors" && computerSelection === "paper":
-      message = "🥳 You Win! Scissors beats Paper";
-      break;
-    case playerSelection === "paper" && computerSelection === "rock":
-      message = "🥳 You Win! Paper beats Rock";
-      break;
-    default:
-      message = getRandomAiResponses();
-      break;
+  let winner;
+  let winMsg;
+  let victory;
+  const rockBeatsScissorsMsg = "Rock beats Scissors!";
+  const paperBeatsRockMsg = "Paper beats Rock!";
+  const scissorsBeatsPaperMsg = "Scissors beats Paper!";
+
+  if (playerSelection === computerSelection) {
+    winner = "draw";
+    winMsg = `You both chose ${playerSelection}`;
+  } else if (playerSelection === "rock" && computerSelection === "scissors") {
+    winner = "player";
+    winMsg = rockBeatsScissorsMsg;
+  } else if (playerSelection === "scissors" && computerSelection === "paper") {
+    winner = "player";
+    winMsg = scissorsBeatsPaperMsg;
+  } else if (playerSelection === "paper" && computerSelection === "rock") {
+    winner = "player";
+    winMsg = paperBeatsRockMsg;
+  } else if (computerSelection === "rock" && playerSelection === "scissors") {
+    winner = "computer";
+    winMsg = rockBeatsScissorsMsg;
+  } else if (computerSelection === "scissors" && playerSelection === "paper") {
+    winner = "computer";
+    winMsg = scissorsBeatsPaperMsg;
+  } else if (computerSelection === "paper" && playerSelection === "rock") {
+    winner = "computer";
+    winMsg = paperBeatsRockMsg;
   }
-  return message;
+
+  victory = {
+    playerChoice: playerSelection,
+    computerChoice: computerSelection,
+    winner: winner,
+    winMsg: winMsg,
+  };
+
+  return victory;
 }
 
-function increaseWinnerScore(message) {
-  switch (message) {
-    case "🤷‍♂️ It's a Draw!":
-      break;
-    case "🥳 You win! Rock beats Scissors!":
-    case "🥳 You Win! Scissors beats Paper":
-    case "🥳 You Win! Paper beats Rock":
-      increasePlayerScore();
-      break;
-    default:
-      increaseComputerScore();
-      break;
+function handleVictory(victory) {
+  let resultMessage;
+
+  if (victory.winner === "player") {
+    resultMessage = "🥳 You win!";
+    increasePlayerScore();
+  } else if (victory.winner === "computer") {
+    resultMessage = "😭 You Lose!";
+    increaseComputerScore();
+  } else if (victory.winner === "draw") {
+    resultMessage = "🤷‍♂️ It's a Draw!";
   }
+
+  resultMessage = `${resultMessage} ${victory.winMsg}`;
+
+  showMessage(
+    `Player Choice: ${victory.playerChoice}\nComputer Choice: ${victory.computerChoice}\n${resultMessage}`
+  );
+
+  if (victory.winner === "computer") getRandomAiResponses();
 }
 
 function playGame(round) {
   let playerChoice = playerPlay(round);
   let computerChoice = computerPlay();
   let result = whoWins(playerChoice, computerChoice);
-  increaseWinnerScore(result);
-  showMessage(
-    `Player Choice: ${playerChoice}\nComputer Choice: ${computerChoice}\n${result}`
-  );
+
+  handleVictory(result);
 }
 
 function reStartGame() {

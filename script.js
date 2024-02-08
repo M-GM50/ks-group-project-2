@@ -49,9 +49,9 @@ const getRandomAiResponses = () => {
   return response + aiResponses[Math.floor(Math.random() * aiResponses.length)];
 };
 
-const incrementPlayerScore = () => playerScore++;
+const increasePlayerScore = () => playerScore++;
 
-const incrementComputerScore = () => computerScore++;
+const increaseComputerScore = () => computerScore++;
 
 const resetScores = () => {
   playerScore = 0;
@@ -163,20 +163,39 @@ function Rounds() {
 }
 
 function whoWins(playerSelection, computerSelection) {
-  if (playerSelection == computerSelection) {
-    return "🤷‍♂️ It's a Draw!";
-  } else if (playerSelection === "rock" && computerSelection === "scissors") {
-    incrementPlayerScore(); // rose added this line
-    return "🥳 You win! Rock beats Scissors!";
-  } else if (playerSelection === "scissors" && computerSelection === "paper") {
-    incrementPlayerScore(); // rose added this line
-    return "🥳 You Win! Scissors beats Paper";
-  } else if (playerSelection === "paper" && computerSelection === "rock") {
-    incrementPlayerScore(); // rose added this line
-    return "🥳 You Win! Paper beats Rock";
-  } else {
-    incrementComputerScore();
-    return getRandomAiResponses();
+  let message = "";
+  switch(true) {
+    case playerSelection === computerSelection:
+      message = "🤷‍♂️ It's a Draw!";
+      break;
+    case playerSelection === "rock" && computerSelection === "scissors":
+      message = "🥳 You win! Rock beats Scissors!";
+      break;
+    case playerSelection === "scissors" && computerSelection === "paper":
+      message = "🥳 You Win! Scissors beats Paper";
+      break;
+    case playerSelection === "paper" && computerSelection === "rock":
+      message = "🥳 You Win! Paper beats Rock";
+      break;
+    default:
+      message = getRandomAiResponses();
+      break;
+  }
+  return message;
+}
+
+function increaseWinnerScore(message) {
+  switch (message) {
+    case "🤷‍♂️ It's a Draw!":
+      break;
+    case "🥳 You win! Rock beats Scissors!":
+    case "🥳 You Win! Scissors beats Paper":
+    case "🥳 You Win! Paper beats Rock":
+      increasePlayerScore();
+      break;
+    default:
+      increaseComputerScore();
+      break;
   }
 }
 
@@ -184,6 +203,7 @@ function playGame(round) {
   let playerChoice = playerPlay(round);
   let computerChoice = computerPlay();
   let result = whoWins(playerChoice, computerChoice);
+  increaseWinnerScore(result);
   showMessage(
     `Player Choice: ${playerChoice}\nComputer Choice: ${computerChoice}\n${result}`
   );

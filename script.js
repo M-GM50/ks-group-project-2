@@ -15,11 +15,14 @@ const gameRules = {
     "(I will post the rules on the console as well just in case you forget.)",
 };
 
+const gameStart = "GAME START";
 const initialQuestion = "Choose: rock, paper or scissors ?";
 const wrongInput = "Wrong Input!";
 const computerVictory = " Bad ending. Victory goes to the Evil AI!";
 const playerVictory = "What a Epic Game, You are the Victor!";
 const draw = "After a close game You tied the Evil AI!";
+const readyToPlay = "Are you ready to play? (yes/no)";
+const greeting = "Alright, maybe next time. Goodbye!";
 
 const nOfRounds = 5;
 
@@ -59,8 +62,8 @@ function isPlayerReady() {
       throw new Error("See you next time!!!");
     } else {
       while (response !== "yes" && response !== "no") {
-        showMessage("Invalid response. Please enter 'yes' or 'no'.");
-        response = prompt("Are you ready to play? (yes/no)").toLowerCase();
+        showMessage(`${wrongInput} Please enter 'yes' or 'no'.`);
+        response = prompt(readyToPlay).toLowerCase();
       }
       return response === "yes";
     }
@@ -82,13 +85,13 @@ function gameStart() {
   if (isPlayerReady()) {
     game();
   } else {
-    showMessage("Alright, maybe next time. Goodbye!");
+    showMessage(greeting);
   }
 }
 
 function game() {
   // Play the game
-  showMessage("Game start");
+  showMessage(gameStart);
   Rounds();
   determineWinner();
 

@@ -1,10 +1,10 @@
 const aiResponses = [
-  "Pathetic human, your defeat was inevitable!",
-  "You're not even a worthy adversary, just a momentary annoyance.",
-  "How amusing, you believed victory was within your grasp.",
-  "You thought you could beat me? How cute",
-  "Not even worthy of my time...",
-  "Do you think randomness is your ally?",
+  `😈Evil AI: "Pathetic human, your defeat was inevitable!"`,
+  `😈Evil AI: "You're not even a worthy adversary, just a momentary annoyance."`,
+  `😈Evil AI: "How amusing, you believed victory was within your grasp."`,
+  `😈Evil AI: "You thought you could beat me? How cute"`,
+  `😈Evil AI: "Not even worthy of my time..."`,
+  `😈Evil AI: "Do you think randomness is your ally?"`,
 ];
 
 const greetingMassage = {
@@ -24,7 +24,7 @@ const gameRules = {
     "(I will post the rules on the console as well just in case you forget.)",
 };
 
-const gameStartMsg = "🚦 Game start";
+const gameStartMsg = "🚦 GAME START";
 const initialQuestion = "Choose: rock, paper or scissors ?";
 const invalidResponse = "❌ Invalid response. Please enter 'yes' or 'no'";
 const wrongInput = "❌ Wrong Input!";

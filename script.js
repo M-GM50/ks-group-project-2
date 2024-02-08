@@ -90,7 +90,9 @@ function game() {
   // Play the game
   showMessage("Game start");
   Rounds();
-  determineWinner(); // rose added this line
+  determineWinner();
+
+  reStartGame();
 }
 
 function computerPlay() {
@@ -181,6 +183,6 @@ function reStartGame() {
 }
 
 appStart();
-reStartGame();
+
 
 

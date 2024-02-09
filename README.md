@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a second group project for KreativStorm training course.
+This is the second group project for KreativStorm training course.
 
 ## Objective
 
@@ -21,5 +21,5 @@ The player is going to play against computer for 5 rounds.
 This is a very simple and yet exciting game that pits two opponents against each other to determine the ultimate victor.
 
 - Rocks beats Scissors
-- Scissors beats Paper
+- Scissors beat Paper
 - Paper beats Rock

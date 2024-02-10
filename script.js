@@ -125,12 +125,10 @@ function gameStart() {
 
 function game() {
   showMessage(gameStartMsg);
-  //Marion
   let roundResult = rounds();
   if (!roundResult) {
     return false;
   }
-  //Marion
   determineWinner();
 
   reStartGame();
@@ -161,9 +159,7 @@ function playerPlay(roundNumber) {
     if (wantToQuitGame()) {
       showMessage(greeting);
       console.clear();
-      //Marion
-      return false
-      //Marion
+      return false;
     } else {
       return playerPlay(roundNumber);
     }
@@ -194,17 +190,14 @@ const showScores = (round) => {
 function rounds() {
   let round = 1;
   for (let i = 0; i < nOfRounds; i++) {
-    //Marion
     let gameContinues = playGame(round);
     if (!gameContinues) {
-      return false
+      return false;
     }
-    //Marion
     showScores(round);
     round++;
   }
   return true;
-  //Marion
 }
 
 function whoWins(playerSelection, computerSelection) {
@@ -272,18 +265,14 @@ function handleVictory(victory) {
 
 function playGame(round) {
   let playerChoice = playerPlay(round);
-  //Marion
   if (playerChoice === false) {
     return false;
-  };
-  //Marion
+  }
   let computerChoice = computerPlay();
   let result = whoWins(playerChoice, computerChoice);
 
   handleVictory(result);
-  //Marion
   return true;
-  //Marion
 }
 
 function reStartGame() {

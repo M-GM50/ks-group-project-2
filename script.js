@@ -68,14 +68,18 @@ function determineWinner() {
 
 function isPlayerReady() {
   let response = prompt(readyToPlay);
-  if (response === null || response.toLowerCase() === "no") {
+  if (response === null || response.toLowerCase().trim() === "no") {
     alert(greeting);
   } else {
-    while (response !== "yes" && response !== "no") {
+    if (
+      response.toLowerCase().trim() !== "yes" &&
+      response.toLowerCase().trim() !== "no"
+    ) {
       showMessage(invalidResponse);
       response = prompt(readyToPlay).toLowerCase();
+    } else {
+      return response.toLowerCase().trim() === "yes";
     }
-    return response === "yes";
   }
 }
 

@@ -16,7 +16,7 @@ const greetingMassage = {
 const gameRules = {
   title: "The Rules are straightforward:",
   line1: "→ Rock beats Scissors",
-  line2: "→ Scissors beats Paper",
+  line2: "→ Scissors beat Paper",
   line3: "→ Paper beats Rock",
   line4:
     "Can you defeat the 😈evil AI in this epic battle? You will play 5 rounds, at the end who get more points is the winner!!!",
@@ -82,19 +82,19 @@ function determineWinner() {
 }
 
 function isPlayerReady() {
-  try {
-    let response = prompt(readyToPlay);
-    if (response === null) {
-      throw new Error("👋 See you next time!!!");
+  let response = prompt(readyToPlay);
+  if (response === null || response.toLowerCase().trim() === "no") {
+    alert(greeting);
+  } else {
+    if (
+      response.toLowerCase().trim() !== "yes" &&
+      response.toLowerCase().trim() !== "no"
+    ) {
+      showMessage(invalidResponse);
+      response = prompt(readyToPlay).toLowerCase();
     } else {
-      while (response !== "yes" && response !== "no") {
-        showMessage(invalidResponse);
-        response = prompt(readyToPlay).toLowerCase();
-      }
-      return response === "yes";
+      return response.toLowerCase().trim() === "yes";
     }
-  } catch (error) {
-    console.log(error.message);
   }
 }
 
@@ -111,7 +111,8 @@ function gameStart() {
   if (isPlayerReady()) {
     game();
   } else {
-    showMessage(greeting);
+    //showMessage(greeting);
+    return;
   }
 }
 
@@ -196,7 +197,7 @@ function whoWins(playerSelection, computerSelection) {
   let victory;
   const rockBeatsScissorsMsg = "Rock beats Scissors!";
   const paperBeatsRockMsg = "Paper beats Rock!";
-  const scissorsBeatsPaperMsg = "Scissors beats Paper!";
+  const scissorsBeatsPaperMsg = "Scissors beat Paper!";
 
   if (playerSelection === computerSelection) {
     winner = "draw";

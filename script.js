@@ -45,17 +45,23 @@ const showMessage = (message) => {
 };
 
 function wantToQuitGame() {
-  let question = prompt("Are you sure to quit the game?(yes/no)");
-  if (question !== null) {
-    if (question.toLowerCase().trim() === "yes") {
-      return true;
-    } else if (question.toLowerCase().trim() === "no") {
-      return false;
-    } else {
-      wantToQuitGame();
-    }
+  let confirmQuitMessage = prompt("Are you sure to quit the game?(yes/no)");
+  if (
+    confirmQuitMessage === null ||
+    confirmQuitMessage.toLowerCase().trim() === "no"
+  ) {
+    // cancel quit, go back to the game
+    return false;
   } else {
-    wantToQuitGame();
+    if (
+      confirmQuitMessage.toLowerCase().trim() !== "yes" &&
+      confirmQuitMessage.toLowerCase().trim() !== "no"
+    ) {
+      showMessage(invalidResponse);
+      return wantToQuitGame();
+    } else {
+      return true;
+    }
   }
 }
 
@@ -84,14 +90,14 @@ function determineWinner() {
 function isPlayerReady() {
   let response = prompt(readyToPlay);
   if (response === null || response.toLowerCase().trim() === "no") {
-    alert(greeting);
+    return response === "no";
   } else {
     if (
       response.toLowerCase().trim() !== "yes" &&
       response.toLowerCase().trim() !== "no"
     ) {
       showMessage(invalidResponse);
-      response = prompt(readyToPlay).toLowerCase();
+      return isPlayerReady();
     } else {
       return response.toLowerCase().trim() === "yes";
     }
@@ -111,7 +117,8 @@ function gameStart() {
   if (isPlayerReady()) {
     game();
   } else {
-    //showMessage(greeting);
+    showMessage(greeting);
+    console.clear();
     return;
   }
 }
@@ -136,7 +143,7 @@ function computerPlay() {
 }
 
 const isValidInput = (input) =>
-  input === "rock" || input === "paper" || input === "scissors"
+  input === "rock" || input === "paper" || input === "scissors";
 
 function playerPlay(roundNumber) {
   const roundCounterMessage = `🚩 ROUND ${roundNumber}`;
@@ -146,22 +153,20 @@ function playerPlay(roundNumber) {
 
   // If user cancels, return null
   if (playerChoose === null) {
-    const quit = wantToQuitGame();
-
-    if (quit) {
+    if (wantToQuitGame()) {
       showMessage(greeting);
-      return appStart();
+      console.clear();
     } else {
       return playerPlay(roundNumber);
     }
-  }
-
-  if (isValidInput(playerChoose)) {
-    playerChoose = playerChoose.toLowerCase().trim();
-    return playerChoose;
   } else {
-    showMessage(wrongInput);
-    return playerPlay(roundNumber);
+    if (isValidInput(playerChoose)) {
+      playerChoose = playerChoose.toLowerCase().trim();
+      return playerChoose;
+    } else {
+      showMessage(wrongInput);
+      return playerPlay(roundNumber);
+    }
   }
 }
 

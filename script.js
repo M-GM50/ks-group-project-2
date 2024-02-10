@@ -143,7 +143,6 @@ function playerPlay(roundNumber) {
   let question = `${roundCounterMessage} \n${initialQuestion}`;
 
   let playerChoose = prompt(question);
-  console.log(playerChoose);
 
   // If user cancels, return null
   if (playerChoose === null) {
@@ -158,11 +157,9 @@ function playerPlay(roundNumber) {
   }
 
   if (isValidInput(playerChoose)) {
-    console.log("is valid")
     playerChoose = playerChoose.toLowerCase().trim();
     return playerChoose;
   } else {
-    console.log("is unvalid")
     showMessage(wrongInput);
     return playerPlay(roundNumber);
   }

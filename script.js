@@ -44,7 +44,8 @@ const showMessage = (message) => {
   alert(message);
 };
 
-const getRandomAiResponses = () => showMessage(aiResponses[Math.floor(Math.random() * aiResponses.length)]);
+const getRandomAiResponses = () =>
+  showMessage(aiResponses[Math.floor(Math.random() * aiResponses.length)]);
 
 const increasePlayerScore = () => playerScore++;
 
@@ -66,19 +67,15 @@ function determineWinner() {
 }
 
 function isPlayerReady() {
-  try {
-    let response = prompt(readyToPlay);
-    if (response === null) {
-      throw new Error("👋 See you next time!!!");
-    } else {
-      while (response !== "yes" && response !== "no") {
-        showMessage(invalidResponse);
-        response = prompt(readyToPlay).toLowerCase();
-      }
-      return response === "yes";
+  let response = prompt(readyToPlay);
+  if (response === null || response.toLowerCase() === "no") {
+    alert(greeting);
+  } else {
+    while (response !== "yes" && response !== "no") {
+      showMessage(invalidResponse);
+      response = prompt(readyToPlay).toLowerCase();
     }
-  } catch (error) {
-    console.log(error.message);
+    return response === "yes";
   }
 }
 
@@ -95,7 +92,8 @@ function gameStart() {
   if (isPlayerReady()) {
     game();
   } else {
-    showMessage(greeting);
+    //showMessage(greeting);
+    return;
   }
 }
 
@@ -118,7 +116,8 @@ function computerPlay() {
   }
 }
 
-const isValidInput = (input) => input === "rock" || input === "paper" || input === "scissors";
+const isValidInput = (input) =>
+  input === "rock" || input === "paper" || input === "scissors";
 
 function playerPlay(roundNumber) {
   const roundCounterMessage = `🚩 ROUND ${roundNumber}`;

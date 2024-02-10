@@ -136,16 +136,14 @@ function computerPlay() {
 }
 
 const isValidInput = (input) =>
-  input === "rock" || input === "paper" || input === "scissors";
+  input === "rock" || input === "paper" || input === "scissors"
 
 function playerPlay(roundNumber) {
   const roundCounterMessage = `🚩 ROUND ${roundNumber}`;
   let question = `${roundCounterMessage} \n${initialQuestion}`;
 
-  // let playerChoose = prompt(question);
-  // let escape = false;
-
-  var playerChoose = prompt(question);
+  let playerChoose = prompt(question);
+  console.log(playerChoose);
 
   // If user cancels, return null
   if (playerChoose === null) {
@@ -159,13 +157,14 @@ function playerPlay(roundNumber) {
     }
   }
 
-  playerChoose = playerChoose.toLowerCase().trim();
-
   if (isValidInput(playerChoose)) {
+    console.log("is valid")
+    playerChoose = playerChoose.toLowerCase().trim();
     return playerChoose;
   } else {
+    console.log("is unvalid")
     showMessage(wrongInput);
-    playerPlay(roundNumber);
+    return playerPlay(roundNumber);
   }
 }
 

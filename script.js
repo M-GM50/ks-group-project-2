@@ -44,7 +44,23 @@ const showMessage = (message) => {
   alert(message);
 };
 
-const getRandomAiResponses = () => showMessage(aiResponses[Math.floor(Math.random() * aiResponses.length)]);
+function wantToQuitGame() {
+  let question = prompt("Are you sure to quit the game?(yes/no)");
+  if (question !== null) {
+    if (question.toLowerCase().trim() === "yes") {
+      return true;
+    } else if (question.toLowerCase().trim() === "no") {
+      return false;
+    } else {
+      wantToQuitGame();
+    }
+  } else {
+    wantToQuitGame();
+  }
+}
+
+const getRandomAiResponses = () =>
+  showMessage(aiResponses[Math.floor(Math.random() * aiResponses.length)]);
 
 const increasePlayerScore = () => playerScore++;
 
@@ -101,7 +117,7 @@ function gameStart() {
 
 function game() {
   showMessage(gameStartMsg);
-  Rounds();
+  rounds();
   determineWinner();
 
   reStartGame();
@@ -118,20 +134,37 @@ function computerPlay() {
   }
 }
 
-const isValidInput = (input) => input === "rock" || input === "paper" || input === "scissors";
+const isValidInput = (input) =>
+  input === "rock" || input === "paper" || input === "scissors";
 
 function playerPlay(roundNumber) {
   const roundCounterMessage = `🚩 ROUND ${roundNumber}`;
   let question = `${roundCounterMessage} \n${initialQuestion}`;
 
-  while (true) {
-    let playerChoose = prompt(question)?.toLowerCase();
+  // let playerChoose = prompt(question);
+  // let escape = false;
 
-    if (isValidInput(playerChoose)) {
-      return playerChoose;
+  var playerChoose = prompt(question);
+
+  // If user cancels, return null
+  if (playerChoose === null) {
+    const quit = wantToQuitGame();
+
+    if (quit) {
+      showMessage(greeting);
+      return appStart();
     } else {
-      question = `${roundCounterMessage}\n${wrongInput} ${initialQuestion}`;
+      return playerPlay(roundNumber);
     }
+  }
+
+  playerChoose = playerChoose.toLowerCase().trim();
+
+  if (isValidInput(playerChoose)) {
+    return playerChoose;
+  } else {
+    showMessage(wrongInput);
+    playerPlay(roundNumber);
   }
 }
 
@@ -148,7 +181,7 @@ const showScores = (round) => {
   showMessage(scoreMessage);
 };
 
-function Rounds() {
+function rounds() {
   let round = 1;
   for (let i = 0; i < nOfRounds; i++) {
     playGame(round);

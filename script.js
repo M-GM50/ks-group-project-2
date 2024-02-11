@@ -45,17 +45,23 @@ const showMessage = (message) => {
 };
 
 function wantToQuitGame() {
-  let question = prompt("Are you sure to quit the game?(yes/no)");
-  if (question !== null) {
-    if (question.toLowerCase().trim() === "yes") {
-      return true;
-    } else if (question.toLowerCase().trim() === "no") {
-      return false;
-    } else {
-      wantToQuitGame();
-    }
+  let confirmQuitMessage = prompt("Are you sure to quit the game?(yes/no)");
+  if (
+    confirmQuitMessage === null ||
+    confirmQuitMessage.toLowerCase().trim() === "no"
+  ) {
+    // cancel quit, go back to the game
+    return false;
   } else {
-    wantToQuitGame();
+    if (
+      confirmQuitMessage.toLowerCase().trim() !== "yes" &&
+      confirmQuitMessage.toLowerCase().trim() !== "no"
+    ) {
+      showMessage(invalidResponse);
+      return wantToQuitGame();
+    } else {
+      return true;
+    }
   }
 }
 
@@ -84,14 +90,14 @@ function determineWinner() {
 function isPlayerReady() {
   let response = prompt(readyToPlay);
   if (response === null || response.toLowerCase().trim() === "no") {
-    alert(greeting);
+    return response === "no";
   } else {
     if (
       response.toLowerCase().trim() !== "yes" &&
       response.toLowerCase().trim() !== "no"
     ) {
       showMessage(invalidResponse);
-      response = prompt(readyToPlay).toLowerCase();
+      return isPlayerReady();
     } else {
       return response.toLowerCase().trim() === "yes";
     }
@@ -111,14 +117,18 @@ function gameStart() {
   if (isPlayerReady()) {
     game();
   } else {
-    //showMessage(greeting);
+    showMessage(greeting);
+    console.clear();
     return;
   }
 }
 
 function game() {
   showMessage(gameStartMsg);
-  rounds();
+  let roundResult = rounds();
+  if (!roundResult) {
+    return false;
+  }
   determineWinner();
 
   reStartGame();
@@ -136,7 +146,7 @@ function computerPlay() {
 }
 
 const isValidInput = (input) =>
-  input === "rock" || input === "paper" || input === "scissors"
+  input === "rock" || input === "paper" || input === "scissors";
 
 function playerPlay(roundNumber) {
   const roundCounterMessage = `🚩 ROUND ${roundNumber}`;
@@ -146,11 +156,10 @@ function playerPlay(roundNumber) {
 
   // If user cancels, return null
   if (playerChoose === null) {
-    const quit = wantToQuitGame();
-
-    if (quit) {
+    if (wantToQuitGame()) {
       showMessage(greeting);
-      return appStart();
+      console.clear();
+      return false;
     } else {
       return playerPlay(roundNumber);
     }
@@ -161,8 +170,13 @@ function playerPlay(roundNumber) {
   if (isValidInput(playerChoose)) {
     return playerChoose;
   } else {
-    showMessage(wrongInput);
-    return playerPlay(roundNumber);
+    if (isValidInput(playerChoose)) {
+      playerChoose = playerChoose.toLowerCase().trim();
+      return playerChoose;
+    } else {
+      showMessage(wrongInput);
+      return playerPlay(roundNumber);
+    }
   }
 }
 
@@ -182,10 +196,14 @@ const showScores = (round) => {
 function rounds() {
   let round = 1;
   for (let i = 0; i < nOfRounds; i++) {
-    playGame(round);
+    let gameContinues = playGame(round);
+    if (!gameContinues) {
+      return false;
+    }
     showScores(round);
     round++;
   }
+  return true;
 }
 
 function whoWins(playerSelection, computerSelection) {
@@ -253,10 +271,14 @@ function handleVictory(victory) {
 
 function playGame(round) {
   let playerChoice = playerPlay(round);
+  if (playerChoice === false) {
+    return false;
+  }
   let computerChoice = computerPlay();
   let result = whoWins(playerChoice, computerChoice);
 
   handleVictory(result);
+  return true;
 }
 
 function reStartGame() {

@@ -156,8 +156,9 @@ function playerPlay(roundNumber) {
     }
   }
 
+  playerChoose = playerChoose.toLowerCase().trim();
+
   if (isValidInput(playerChoose)) {
-    playerChoose = playerChoose.toLowerCase().trim();
     return playerChoose;
   } else {
     showMessage(wrongInput);

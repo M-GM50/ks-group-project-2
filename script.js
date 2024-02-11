@@ -90,7 +90,7 @@ function determineWinner() {
 function isPlayerReady() {
   let response = prompt(readyToPlay);
   if (response === null || response.toLowerCase().trim() === "no") {
-    return response === "no";
+    return "no";
   } else {
     if (
       response.toLowerCase().trim() !== "yes" &&
@@ -99,7 +99,7 @@ function isPlayerReady() {
       showMessage(invalidResponse);
       return isPlayerReady();
     } else {
-      return response.toLowerCase().trim() === "yes";
+      return "yes";
     }
   }
 }
@@ -114,7 +114,8 @@ function appStart() {
 }
 
 function gameStart() {
-  if (isPlayerReady()) {
+  let readyToPlay = isPlayerReady();
+  if (readyToPlay === "yes") {
     game();
   } else {
     showMessage(greeting);

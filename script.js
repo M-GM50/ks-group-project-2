@@ -163,6 +163,12 @@ function playerPlay(roundNumber) {
     } else {
       return playerPlay(roundNumber);
     }
+  }
+
+  playerChoose = playerChoose.toLowerCase().trim();
+
+  if (isValidInput(playerChoose)) {
+    return playerChoose;
   } else {
     if (isValidInput(playerChoose)) {
       playerChoose = playerChoose.toLowerCase().trim();
